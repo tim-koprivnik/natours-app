@@ -1,6 +1,7 @@
 # Natours
 
-This web app was created using [Node.js](https://nodejs.org/en), [Express](https://expressjs.com/), [MongoDB](https://www.mongodb.com/), and [Mongoose](https://mongoosejs.com/).
+Welcome to Natours, the ultimate travel companion app for adventure seekers and globe trotters! Choose from a wide array of travel tours, ranging from serene beach vacations and cultural city tours to exhilarating mountain trekking adventures. Each tour is detailed with stunning imagery, comprehensive itineraries, and user reviews to help you make the perfect choice.
+Our Node.js and Express-powered application is designed to bring you closer to your dream destinations with just a few clicks. Immerse yourself in a world of diverse travel tours, each meticulously crafted to deliver unique and memorable experiences.
 
 ## Features
 
@@ -90,3 +91,7 @@ This project is open-source and available under the MIT License.
 Tim Koprivnik - t.koprivnik@gmail.com
 
 ## Website
+
+## NOTES
+
+Development is still in progress...
