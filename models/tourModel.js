@@ -109,7 +109,7 @@ tourSchema.post('save', function (doc, next) {
 // b) Query Middleware
 tourSchema.pre(/^find/, function (next) {
   // /^find/ means that all strings that start with find will be matched (e.g. findOne, findOneAndUpdate, etc.)
-  this.find({ secretTour: { $ne: true } }); // We filter out secret tours
+  this.find({ secretTour: { $ne: true } }); // Filter out secret tours
   this.start = Date.now();
   next();
 });
@@ -122,7 +122,7 @@ tourSchema.post(/^find/, function (docs, next) {
 
 // c) Aggregation Middleware
 tourSchema.pre('aggregate', function (next) {
-  this.pipeline().unshift({ $match: { secretTour: { $ne: true } } }); // We filter out secret tours from the aggregation pipeline
+  this.pipeline().unshift({ $match: { secretTour: { $ne: true } } }); // Filter out secret tours from the aggregation pipeline
   console.log(this.pipeline());
   next();
 });
