@@ -1,3 +1,91 @@
-# natours
+# Natours
 
-Travel tours app
+This web app was created using [Node.js](https://nodejs.org/en), [Express](https://expressjs.com/), [MongoDB](https://www.mongodb.com/), and [Mongoose](https://mongoosejs.com/).
+
+## Features
+
+- MVC architecture
+- RESTful API
+- CRUD operations
+- Authentication and Authorization
+- Payments with Stripe
+- Emailing with SendGrid
+- File uploading
+- Mapbox integration
+- Error handling
+- Security
+- Logging
+- Image resizing
+- Rate limiting
+- Data sanitization
+- Pagination
+- Querying
+- Aggregation
+- Geospatial queries
+- And more...
+
+## Getting Started
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/en/download/)
+- [Yarn](https://yarnpkg.com/getting-started/install) or [npm](https://www.npmjs.com/get-npm) (which comes with Node.js)
+
+### Installation
+
+1. Clone the repository: `git clone https://github.com/tim-koprivnik/natours-app.git`
+2. Navigate into the cloned repository directory: `cd [name-of-the-repo]`
+3. Install the dependencies: `npm install` or `yarn`
+4. Start the local development server: `npm run dev` or `yarn dev`
+5. Now, open your browser and navigate to http://localhost:3000. You should see the app running.
+
+### Building the App
+
+To build the app for production, use the following command: npm run build or yarn build
+
+This command will create a dist directory with a production build of your app.
+
+## Technologies Used
+
+- [Node.js](https://nodejs.org/en)
+- [Express](https://expressjs.com/)
+- [MongoDB](https://www.mongodb.com/)
+- [Mongoose](https://mongoosejs.com/)
+- [Pug](https://pugjs.org/api/getting-started.html)
+- [Stripe](https://stripe.com/)
+- [SendGrid](https://sendgrid.com/)
+- [Mapbox](https://www.mapbox.com/)
+- [Multer](https://www.npmjs.com/package/multer)
+- [Sharp](https://www.npmjs.com/package/sharp)
+- [Helmet](https://helmetjs.github.io/)
+- [CORS](https://www.npmjs.com/package/cors)
+- [Morgan](https://www.npmjs.com/package/morgan)
+- [Express Rate Limit](https://www.npmjs.com/package/express-rate-limit)
+- [Express Mongo Sanitize](https://www.npmjs.com/package/express-mongo-sanitize)
+- [XSS Clean](https://www.npmjs.com/package/xss-clean)
+- [HPP](https://www.npmjs.com/package/hpp)
+- [JWT](https://www.npmjs.com/package/jsonwebtoken)
+- [Bcrypt](https://www.npmjs.com/package/bcrypt)
+- [Slugify](https://www.npmjs.com/package/slugify)
+- [Validator](https://www.npmjs.com/package/validator)
+- [Dotenv](https://www.npmjs.com/package/dotenv)
+- [Nodemon](https://www.npmjs.com/package/nodemon)
+- [ESLint](https://eslint.org/)
+- [Prettier](https://prettier.io/)
+- [EditorConfig](https://editorconfig.org/)
+- [VS Code](https://code.visualstudio.com/)
+- [Postman](https://www.postman.com/)
+- [MongoDB Compass](https://www.mongodb.com/products/compass)
+- [Git](https://git-scm.com/)
+
+## License
+
+This project is open-source and available under the MIT License.
+
+## Contact
+
+Tim Koprivnik - t.koprivnik@gmail.com
+
+## Website
