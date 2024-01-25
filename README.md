@@ -38,12 +38,13 @@ These instructions will get you a copy of the project up and running on your loc
 1. Clone the repository: `git clone https://github.com/tim-koprivnik/natours-app.git`
 2. Navigate into the cloned repository directory: `cd [name-of-the-repo]`
 3. Install the dependencies: `npm install` or `yarn`
-4. Start the local development server: `npm run dev` or `yarn dev`
-5. Now, open your browser and navigate to http://localhost:3000. You should see the app running.
+4. Copy the .env.example file and rename it to .env. Then, fill in the environment variables.
+5. Start the local development server: `npm run dev` or `yarn dev`
+6. Now, open your browser and navigate to http://localhost:3000. You should see the app running.
 
 ### Building the App
 
-To build the app for production, use the following command: npm run build or yarn build
+To build the app for production, use the following command: `npm run build` or `yarn build`
 
 This command will create a dist directory with a production build of your app.
 
