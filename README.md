@@ -55,6 +55,7 @@ This command will create a dist directory with a production build of your app.
 - [Node.js](https://nodejs.org/en)
 - [Express](https://expressjs.com/)
 - [MongoDB](https://www.mongodb.com/)
+- [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
 - [Mongoose](https://mongoosejs.com/)
 - [Pug](https://pugjs.org/api/getting-started.html)
 - [Stripe](https://stripe.com/)
@@ -67,7 +68,6 @@ This command will create a dist directory with a production build of your app.
 - [Morgan](https://www.npmjs.com/package/morgan)
 - [Express Rate Limit](https://www.npmjs.com/package/express-rate-limit)
 - [Express Mongo Sanitize](https://www.npmjs.com/package/express-mongo-sanitize)
-- [XSS Clean](https://www.npmjs.com/package/xss-clean)
 - [HPP](https://www.npmjs.com/package/hpp)
 - [JWT](https://www.npmjs.com/package/jsonwebtoken)
 - [Bcrypt](https://www.npmjs.com/package/bcrypt)
@@ -80,7 +80,6 @@ This command will create a dist directory with a production build of your app.
 - [EditorConfig](https://editorconfig.org/)
 - [VS Code](https://code.visualstudio.com/)
 - [Postman](https://www.postman.com/)
-- [MongoDB Compass](https://www.mongodb.com/products/compass)
 - [Git](https://git-scm.com/)
 
 ## License
