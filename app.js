@@ -2,7 +2,9 @@ const express = require('express');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
-const xss = require('xss');
+const { JSDOM } = require('jsdom');
+const createDOMPurify = require('dompurify');
+const hpp = require('hpp');
 const mongoSanitize = require('express-mongo-sanitize');
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
@@ -31,14 +33,43 @@ const limiter = rateLimit({
 // Apply limiter to all routes starting with /api
 app.use('/api', limiter);
 
-// Body parser, reading data from body into req.body
+// Body parser, reading data from body into req.body -- prevents DOS attacks
 app.use(express.json({ limit: '10kb' }));
 
 // Data sanitization against NoSQL query injection
 app.use(mongoSanitize());
 
+// Initialize a JSDOM instance and create a DOMPurify instance
+const { window } = new JSDOM('');
+const DOMPurify = createDOMPurify(window);
+
 // Data sanitization against XSS
-app.use(xss());
+const sanitizeRequestBody = (req, res, next) => {
+  if (req.body) {
+    Object.keys(req.body).forEach((key) => {
+      if (typeof req.body[key] === 'string') {
+        req.body[key] = DOMPurify.sanitize(req.body[key]);
+      }
+    });
+  }
+  next();
+};
+
+app.use(sanitizeRequestBody);
+
+// Prevent parameter pollution
+app.use(
+  hpp({
+    whitelist: [
+      'duration',
+      'ratingsAverage',
+      'ratingsQuantity',
+      'maxGroupSize',
+      'difficulty',
+      'price',
+    ], // Allow duplicate parameters for these fields
+  }),
+);
 
 // Serving static files
 app.use(express.static(`${__dirname}/public`));
