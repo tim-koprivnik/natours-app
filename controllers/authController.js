@@ -14,6 +14,20 @@ const signToken = (id) => {
 const createSendToken = (user, statusCode, res) => {
   const token = signToken(user._id);
 
+  const cookieOptions = {
+    expires: new Date(
+      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000, // convert to milliseconds
+    ),
+    httpOnly: true, // cookie cannot be accessed or modified in any way by the browser
+  };
+
+  if (process.env.NODE_ENV === 'production') cookieOptions.secure = true; // cookie will only be sent on an encrypted connection (HTTPS)
+
+  res.cookie('jwt', token, cookieOptions);
+
+  // Remove password from output
+  user.password = undefined;
+
   res.status(statusCode).json({
     status: 'success',
     token,
@@ -82,8 +96,8 @@ exports.protect = async (req, res, next) => {
         ),
       );
 
-    // 2) Verification token
-    const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+    // 2) Verify token
+    const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET); // promisify(jwt.verify) returns a function that we can call with the token and the secret // { id: '8954sfr9r349fds42c832a3b9af', iat: 1706198236, exp: 1713974236 }
 
     // 3) Check if user still exists
     const currentUser = await User.findById(decoded.id);
@@ -104,7 +118,7 @@ exports.protect = async (req, res, next) => {
         ),
       );
 
-    // GRANT ACCESS TO PROTECTED ROUTE
+    // 5) Grant access to protected route
     req.user = currentUser;
     next();
   } catch (error) {
