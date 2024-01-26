@@ -68,6 +68,7 @@ This command will create a dist directory with a production build of your app.
 - [Morgan](https://www.npmjs.com/package/morgan)
 - [Express Rate Limit](https://www.npmjs.com/package/express-rate-limit)
 - [Express Mongo Sanitize](https://www.npmjs.com/package/express-mongo-sanitize)
+- [XSS](https://www.npmjs.com/package/xss)
 - [HPP](https://www.npmjs.com/package/hpp)
 - [JWT](https://www.npmjs.com/package/jsonwebtoken)
 - [Bcrypt](https://www.npmjs.com/package/bcrypt)
