@@ -29,8 +29,8 @@ const limiter = rateLimit({
 // Apply limiter to all routes starting with /api
 app.use('/api', limiter);
 
-// Body parser
-app.use(express.json());
+// Body parser, reading data from body into req.body
+app.use(express.json({ limit: '10kb' }));
 
 // Serving static files
 app.use(express.static(`${__dirname}/public`));
