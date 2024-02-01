@@ -109,3 +109,12 @@ exports.deleteOne = (Model) => async (req, res, next) => {
     next(err);
   }
 };
+
+exports.checkIfAuthor = (Model) => async (req, res, next) => {
+  const doc = await Model.findById(req.params.id);
+  if (req.user.role !== 'admin') {
+    if (doc.user.id !== req.user.id)
+      return next(new AppError(`You cannot edit someone's else doc.`, 401));
+  }
+  next();
+};

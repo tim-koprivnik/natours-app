@@ -18,3 +18,5 @@ exports.createReview = factory.createOne(Review);
 exports.updateReview = factory.updateOne(Review);
 
 exports.deleteReview = factory.deleteOne(Review);
+
+exports.checkIfAuthor = factory.checkIfAuthor(Review);
