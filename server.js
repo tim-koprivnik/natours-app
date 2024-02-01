@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const path = require('path');
 const dotenv = require('dotenv');
 
 // Handle uncaught exceptions
@@ -8,7 +9,7 @@ process.on('uncaughtException', (err) => {
   process.exit(1);
 });
 
-dotenv.config({ path: './.env' });
+dotenv.config({ path: path.resolve(__dirname, './.env') });
 
 const app = require('./app');
 
