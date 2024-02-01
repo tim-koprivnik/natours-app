@@ -81,6 +81,38 @@ const tourSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    startLocation: {
+      // GeoJSON
+      type: {
+        type: String,
+        default: 'Point',
+        enum: ['Point'],
+      },
+      coordinates: [Number], // [longitude, latitude]
+      address: String,
+      description: String,
+    },
+    locations: [
+      // Embedded documents
+      {
+        type: {
+          type: String,
+          default: 'Point',
+          enum: ['Point'],
+        },
+        coordinates: [Number], // [longitude, latitude]
+        address: String,
+        description: String,
+        day: Number,
+      },
+    ],
+    guides: [
+      // Referencing documents
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User',
+      },
+    ],
   },
   {
     toJSON: { virtuals: true },
@@ -91,6 +123,13 @@ const tourSchema = new mongoose.Schema(
 // *** Virtual schema property
 tourSchema.virtual('durationWeeks').get(function () {
   return (this.duration / 7).toFixed(2);
+});
+
+// *** Virtual populate -- populate reviews from Review model
+tourSchema.virtual('reviews', {
+  ref: 'Review',
+  foreignField: 'tour',
+  localField: '_id',
 });
 
 // *** Mongooose Middlewares
@@ -111,6 +150,14 @@ tourSchema.pre(/^find/, function (next) {
   // /^find/ means that all strings that start with find will be matched (e.g. findOne, findOneAndUpdate, etc.)
   this.find({ secretTour: { $ne: true } }); // Filter out secret tours
   this.start = Date.now();
+  next();
+});
+
+tourSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'guides',
+    select: '-__v -passwordChangedAt',
+  });
   next();
 });
 

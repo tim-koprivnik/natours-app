@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server.js",
     "build": "nodemon server.js NODE_ENV=production",
-    "debug": "nodemon server.js --inspect"
+    "debug": "nodemon server.js --inspect",
+    "delete-tours-data": "node dev-data/data/import-dev-data.js --delete",
+    "import-tours-data": "node dev-data/data/import-dev-data.js --import"
   },
   "author": "Tim Koprivnik",
   "license": "ISC",

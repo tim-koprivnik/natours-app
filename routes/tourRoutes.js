@@ -5,16 +5,18 @@ const {
   getTour,
   updateTour,
   deleteTour,
-  // checkID,
   aliasTopTours,
   getTourStats,
   getMonthlyPlan,
 } = require('../controllers/tourController');
 const { protect, restrict } = require('../controllers/authController');
+const reviewRouter = require('./reviewRoutes');
 
 const router = express.Router();
 
-// router.param('id', checkID);
+// POST /tour/32543aaf/reviews
+// GET /tour/32543aaf/reviews
+router.use('/:tourId/reviews', reviewRouter);
 
 router.route('/top-5').get(aliasTopTours, getAllTours);
 router.route('/stats').get(getTourStats);
