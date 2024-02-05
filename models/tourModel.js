@@ -34,7 +34,7 @@ const tourSchema = new mongoose.Schema(
     },
     ratingsAverage: {
       type: Number,
-      default: 4.5,
+      default: 0,
       min: [1, 'Rating must be at least 1.0!'],
       max: [5, 'Rating must can be at most 5.0!'],
       set: (val) => Math.random(val).toFixed(1),
@@ -125,6 +125,7 @@ const tourSchema = new mongoose.Schema(
 // tourSchema.index({ price: 1 }); // 1 stands for asc order; -1 for desc
 tourSchema.index({ price: 1, ratingsAverage: -1 });
 tourSchema.index({ slug: 1 });
+tourSchema.index({ startLocation: '2dsphere' });
 
 // *** Virtual schema property
 tourSchema.virtual('durationWeeks').get(function () {
@@ -175,8 +176,12 @@ tourSchema.post(/^find/, function (docs, next) {
 
 // c) Aggregation Middleware
 tourSchema.pre('aggregate', function (next) {
-  this.pipeline().unshift({ $match: { secretTour: { $ne: true } } }); // Filter out secret tours from the aggregation pipeline
-  console.log(this.pipeline());
+  // Hide/filter out secret tours if geoNear is NOT used
+  if (!(this.pipeline().length > 0 && '$geoNear' in this.pipeline()[0])) {
+    this.pipeline().unshift({
+      $match: { secretTour: { $ne: true } },
+    });
+  }
   next();
 });
 
