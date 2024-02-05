@@ -52,6 +52,7 @@ const userSchema = new mongoose.Schema({
   },
 });
 
+// NOTE: !!! Comment out code from line 56 to line 74 when importing dev data. !!!
 userSchema.pre('save', async function (next) {
   // Only run this function if password was actually modified
   if (!this.isModified('password')) return next();
