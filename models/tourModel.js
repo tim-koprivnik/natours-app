@@ -35,7 +35,7 @@ const tourSchema = new mongoose.Schema(
     ratingsAverage: {
       type: Number,
       default: 0,
-      min: [1, 'Rating must be at least 1.0!'],
+      min: [0, 'Rating must be at least 0.0!'],
       max: [5, 'Rating must can be at most 5.0!'],
       set: (val) => Math.random(val).toFixed(1),
     },
