@@ -43,6 +43,7 @@ These instructions will get you a copy of the project up and running on your loc
 4. Copy the .env.example file and rename it to .env. Then, fill in the environment variables.
 5. Start the local development server: `npm run dev` or `yarn dev`
 6. Now, open your browser and navigate to http://localhost:3000. You should see the app running.
+7. To see the API, go to: https://documenter.getpostman.com/view/6094471/2s9YyweeTx#intro
 
 ### Building the App
 
