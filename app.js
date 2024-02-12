@@ -23,8 +23,18 @@ app.set('views', path.join(__dirname, 'views'));
 // Serving static files
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Set security HTTP headers
-app.use(helmet());
+// Set security HTTP headers with custom CSP
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+        'script-src': ["'self'", 'https://unpkg.com'], // Add 'https://unpkg.com' to the script-src directive
+        'img-src': ["'self'", 'data:', '*.tile.openstreetmap.org'], // Add img-src directive
+      },
+    },
+  }),
+);
 
 // Development logging
 console.log(process.env.NODE_ENV);

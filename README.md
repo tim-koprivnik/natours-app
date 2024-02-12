@@ -61,7 +61,7 @@ This command will create a dist directory with a production build of your app.
 - [Pug](https://pugjs.org/api/getting-started.html)
 - [Stripe](https://stripe.com/)
 - [SendGrid](https://sendgrid.com/)
-- [Mapbox](https://www.mapbox.com/)
+- [Leaflet](https://leafletjs.com/)
 - [Multer](https://www.npmjs.com/package/multer)
 - [Sharp](https://www.npmjs.com/package/sharp)
 - [Helmet](https://helmetjs.github.io/)
