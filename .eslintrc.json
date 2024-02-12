@@ -1,6 +1,15 @@
 {
   "extends": ["airbnb", "prettier", "plugin:node/recommended"],
   "plugins": ["prettier"],
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module" // to support ES6 module syntax
+  },
+  "env": {
+    "browser": true,
+    "es2020": true, // enables ES6 global variables
+    "node": true // ensures ESLint recognizes Node.js global variables and scope
+  },
   "rules": {
     "prettier/prettier": "error",
     "spaced-comment": "off",

@@ -9,12 +9,16 @@
     "build": "nodemon server.js NODE_ENV=production",
     "debug": "nodemon server.js --inspect",
     "delete-data": "node dev-data/data/import-dev-data.js --delete",
-    "import-data": "node dev-data/data/import-dev-data.js --import"
+    "import-data": "node dev-data/data/import-dev-data.js --import",
+    "watch:js": "parcel watch ./public/js/index.js --target app",
+    "build:js": "parcel build ./public/js/index.js --target app"
   },
   "author": "Tim Koprivnik",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.6.7",
     "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
     "dompurify": "^3.0.8",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
@@ -42,9 +46,15 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^5.1.3",
     "eslint-plugin-react": "^7.33.2",
+    "parcel": "^2.11.0",
     "prettier": "^3.1.1"
   },
   "engines": {
     "node": ">=10.0.0"
+  },
+  "targets": {
+    "app": {
+      "distDir": "./public/js/dist"
+    }
   }
 }

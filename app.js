@@ -7,6 +7,7 @@ const { JSDOM } = require('jsdom');
 const createDOMPurify = require('dompurify');
 const hpp = require('hpp');
 const mongoSanitize = require('express-mongo-sanitize');
+const cookieParser = require('cookie-parser');
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
@@ -29,8 +30,21 @@ app.use(
     contentSecurityPolicy: {
       directives: {
         ...helmet.contentSecurityPolicy.getDefaultDirectives(),
-        'script-src': ["'self'", 'https://unpkg.com'], // Add 'https://unpkg.com' to the script-src directive
-        'img-src': ["'self'", 'data:', '*.tile.openstreetmap.org'], // Add img-src directive
+        'script-src': [
+          "'self'",
+          'https://unpkg.com',
+          'https://cdnjs.cloudflare.com',
+          ...(process.env.NODE_ENV === 'development'
+            ? ["'unsafe-inline'", "'unsafe-eval'", 'ws://127.0.0.1:1234']
+            : []),
+        ],
+        'img-src': ["'self'", 'data:', '*.tile.openstreetmap.org'],
+        'connect-src': [
+          "'self'",
+          ...(process.env.NODE_ENV === 'development'
+            ? ['ws://127.0.0.1:1234']
+            : []),
+        ],
       },
     },
   }),
@@ -54,6 +68,9 @@ app.use('/api', limiter);
 
 // Body parser, reading data from body into req.body -- prevents DOS attacks
 app.use(express.json({ limit: '10kb' }));
+
+// Cookie parser
+app.use(cookieParser());
 
 // Data sanitization against NoSQL query injection
 app.use(mongoSanitize());
@@ -93,6 +110,7 @@ app.use(
 // Test middleware
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
+  console.log(req.cookies);
   next();
 });
 
