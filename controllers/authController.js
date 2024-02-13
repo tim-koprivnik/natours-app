@@ -37,6 +37,14 @@ const createSendToken = (user, statusCode, res) => {
   });
 };
 
+exports.logout = (req, res) => {
+  res.cookie('jwt', 'loggedout', {
+    expires: new Date(Date.now() + 10 * 1000),
+    httpOnly: true,
+  });
+  res.status(200).json({ status: 'success' });
+};
+
 exports.signup = async (req, res, next) => {
   try {
     // const newUser = await User.create(req.body);
@@ -130,26 +138,29 @@ exports.protect = async (req, res, next) => {
 
 // Only for rendered pages, no errors
 exports.isLoggedIn = async (req, res, next) => {
-  let token;
-  if (req.cookies.jwt) {
-    token = req.cookies.jwt;
+  if (req.cookies.jwt && req.cookies.jwt !== 'loggedout') {
+    try {
+      // 1) Verify token
+      const decoded = await promisify(jwt.verify)(
+        req.cookies.jwt,
+        process.env.JWT_SECRET,
+      );
 
-    // 1) Verify token
-    const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+      // 2) Check if user still exists
+      const currentUser = await User.findById(decoded.id);
+      if (!currentUser) return next();
 
-    // 2) Check if user still exists
-    const currentUser = await User.findById(decoded.id);
-    if (!currentUser) return next();
+      // 3) Check if user changed password after the token was issued
+      if (currentUser.changedPasswordAfter(decoded.iat)) return next();
 
-    // 3) Check if user changed password after the token was issued
-    if (currentUser.changedPasswordAfter(decoded.iat)) return next();
-
-    // 4) There is a logged in user
-    res.locals.user = currentUser;
-    next();
-  } else {
-    next();
+      // 4) There is a logged in user
+      res.locals.user = currentUser;
+      return next();
+    } catch (error) {
+      return next(error);
+    }
   }
+  next();
 };
 
 exports.restrict = (...roles) => {
