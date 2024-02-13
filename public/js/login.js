@@ -1,6 +1,7 @@
-// import axios from 'axios';
-
 /* eslint-disable */
+
+// import axios from 'axios';
+import { showAlert } from './alert';
 
 export const login = async (email, password) => {
   try {
@@ -14,7 +15,7 @@ export const login = async (email, password) => {
     });
 
     if (res.data.status === 'success') {
-      alert('Logged in successfully!');
+      showAlert('success', 'Logged in successfully!');
       window.setTimeout(() => {
         location.assign('/');
       }, 1000);
@@ -22,6 +23,11 @@ export const login = async (email, password) => {
 
     console.log(res);
   } catch (err) {
-    alert(err.response.data.message);
+    const errorMessage =
+      err.response && err.response.data && err.response.data.message
+        ? err.response.data.message
+        : 'An unknown error occurred';
+
+    showAlert('error', errorMessage);
   }
 };

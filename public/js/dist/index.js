@@ -594,10 +594,11 @@ if (map) {
 }
 
 },{"./login":"qZEOz","./leaflet":"58ZVV"}],"qZEOz":[function(require,module,exports) {
-// import axios from 'axios';
-/* eslint-disable */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+/* eslint-disable */ // import axios from 'axios';
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "login", ()=>login);
+var _alert = require("./alert");
 const login = async (email, password)=>{
     try {
         const res = await axios({
@@ -609,18 +610,19 @@ const login = async (email, password)=>{
             }
         });
         if (res.data.status === "success") {
-            alert("Logged in successfully!");
+            (0, _alert.showAlert)("success", "Logged in successfully!");
             window.setTimeout(()=>{
                 location.assign("/");
             }, 1000);
         }
         console.log(res);
     } catch (err) {
-        alert(err.response.data.message);
+        const errorMessage = err.response && err.response.data && err.response.data.message ? err.response.data.message : "An unknown error occurred";
+        (0, _alert.showAlert)("error", errorMessage);
     }
 };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"5Birt"}],"5Birt":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"5Birt","./alert":"bRZBd"}],"5Birt":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -650,7 +652,23 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"58ZVV":[function(require,module,exports) {
+},{}],"bRZBd":[function(require,module,exports) {
+/* eslint-disable */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "hideAlert", ()=>hideAlert);
+parcelHelpers.export(exports, "showAlert", ()=>showAlert);
+const hideAlert = ()=>{
+    const el = document.querySelector(".alert");
+    if (el) el.parentElement.removeChild(el);
+};
+const showAlert = (type, msg)=>{
+    hideAlert();
+    const markup = `<div class="alert alert--${type}">${msg}</div>`;
+    document.querySelector("body").insertAdjacentHTML("afterbegin", markup);
+    window.setTimeout(hideAlert, 5000);
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"5Birt"}],"58ZVV":[function(require,module,exports) {
 /* eslint-disable */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "displayMap", ()=>displayMap);
