@@ -578,11 +578,13 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 }
 
 },{}],"4uyBp":[function(require,module,exports) {
-var _login = require("./login");
 var _leaflet = require("./leaflet");
-const loginForm = document.querySelector(".form");
+var _login = require("./login");
+var _updateSettings = require("./updateSettings");
 const map = document.getElementById("map");
 const logoutBtn = document.querySelector(".nav__el--logout");
+const loginForm = document.querySelector(".form--login");
+const userDataForm = document.querySelector(".form-user-data");
 if (loginForm) loginForm.addEventListener("submit", (e)=>{
     e.preventDefault();
     const email = document.getElementById("email").value;
@@ -594,96 +596,14 @@ if (map) {
     (0, _leaflet.displayMap)(locations);
 }
 if (logoutBtn) logoutBtn.addEventListener("click", (0, _login.logout));
+if (userDataForm) userDataForm.addEventListener("submit", (e)=>{
+    e.preventDefault();
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    (0, _updateSettings.updateUserData)(name, email);
+});
 
-},{"./login":"qZEOz","./leaflet":"58ZVV"}],"qZEOz":[function(require,module,exports) {
-/* eslint-disable */ // import axios from 'axios';
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "login", ()=>login);
-parcelHelpers.export(exports, "logout", ()=>logout);
-var _alert = require("./alert");
-const login = async (email, password)=>{
-    try {
-        const res = await axios({
-            method: "POST",
-            url: "http://127.0.0.1:3000/api/v1/users/login",
-            data: {
-                email,
-                password
-            }
-        });
-        if (res.data.status === "success") {
-            (0, _alert.showAlert)("success", "Logged in successfully!");
-            window.setTimeout(()=>{
-                location.assign("/");
-            }, 1000);
-        }
-        console.log(res);
-    } catch (err) {
-        const errorMessage = err.response && err.response.data && err.response.data.message ? err.response.data.message : "An unknown error occurred";
-        (0, _alert.showAlert)("error", errorMessage);
-    }
-};
-const logout = async ()=>{
-    try {
-        const res = await axios({
-            method: "GET",
-            url: "http://127.0.0.1:3000/api/v1/users/logout"
-        });
-        if (res.data.status === "success") location.reload(true);
-    } catch (err) {
-        console.log(err.response);
-        (0, _alert.showAlert)("error", "Error logging out! Try again");
-    }
-};
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"5Birt","./alert":"bRZBd"}],"5Birt":[function(require,module,exports) {
-exports.interopDefault = function(a) {
-    return a && a.__esModule ? a : {
-        default: a
-    };
-};
-exports.defineInteropFlag = function(a) {
-    Object.defineProperty(a, "__esModule", {
-        value: true
-    });
-};
-exports.exportAll = function(source, dest) {
-    Object.keys(source).forEach(function(key) {
-        if (key === "default" || key === "__esModule" || Object.prototype.hasOwnProperty.call(dest, key)) return;
-        Object.defineProperty(dest, key, {
-            enumerable: true,
-            get: function() {
-                return source[key];
-            }
-        });
-    });
-    return dest;
-};
-exports.export = function(dest, destName, get) {
-    Object.defineProperty(dest, destName, {
-        enumerable: true,
-        get: get
-    });
-};
-
-},{}],"bRZBd":[function(require,module,exports) {
-/* eslint-disable */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "hideAlert", ()=>hideAlert);
-parcelHelpers.export(exports, "showAlert", ()=>showAlert);
-const hideAlert = ()=>{
-    const el = document.querySelector(".alert");
-    if (el) el.parentElement.removeChild(el);
-};
-const showAlert = (type, msg)=>{
-    hideAlert();
-    const markup = `<div class="alert alert--${type}">${msg}</div>`;
-    document.querySelector("body").insertAdjacentHTML("afterbegin", markup);
-    window.setTimeout(hideAlert, 5000);
-};
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"5Birt"}],"58ZVV":[function(require,module,exports) {
+},{"./leaflet":"58ZVV","./login":"qZEOz","./updateSettings":"28JcJ"}],"58ZVV":[function(require,module,exports) {
 /* eslint-disable */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "displayMap", ()=>displayMap);
@@ -748,6 +668,116 @@ const displayMap = (locations)=>{
     map.scrollWheelZoom.disable();
 };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"5Birt"}]},["1ZvHf","4uyBp"], "4uyBp", "parcelRequire11c7")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"5Birt"}],"5Birt":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, "__esModule", {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === "default" || key === "__esModule" || Object.prototype.hasOwnProperty.call(dest, key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
+
+},{}],"qZEOz":[function(require,module,exports) {
+/* eslint-disable */ // import axios from 'axios';
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "login", ()=>login);
+parcelHelpers.export(exports, "logout", ()=>logout);
+var _alert = require("./alert");
+const login = async (email, password)=>{
+    try {
+        const res = await axios({
+            method: "POST",
+            url: "http://127.0.0.1:3000/api/v1/users/login",
+            data: {
+                email,
+                password
+            }
+        });
+        if (res.data.status === "success") {
+            (0, _alert.showAlert)("success", "Logged in successfully!");
+            window.setTimeout(()=>{
+                location.assign("/");
+            }, 1000);
+        }
+        console.log(res);
+    } catch (err) {
+        const errorMessage = err.response && err.response.data && err.response.data.message ? err.response.data.message : "An unknown error occurred";
+        (0, _alert.showAlert)("error", errorMessage);
+    }
+};
+const logout = async ()=>{
+    try {
+        const res = await axios({
+            method: "GET",
+            url: "http://127.0.0.1:3000/api/v1/users/logout"
+        });
+        if (res.data.status === "success") location.reload(true);
+    } catch (err) {
+        console.log(err.response);
+        (0, _alert.showAlert)("error", "Error logging out! Try again");
+    }
+};
+
+},{"./alert":"bRZBd","@parcel/transformer-js/src/esmodule-helpers.js":"5Birt"}],"bRZBd":[function(require,module,exports) {
+/* eslint-disable */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "hideAlert", ()=>hideAlert);
+parcelHelpers.export(exports, "showAlert", ()=>showAlert);
+const hideAlert = ()=>{
+    const el = document.querySelector(".alert");
+    if (el) el.parentElement.removeChild(el);
+};
+const showAlert = (type, msg)=>{
+    hideAlert();
+    const markup = `<div class="alert alert--${type}">${msg}</div>`;
+    document.querySelector("body").insertAdjacentHTML("afterbegin", markup);
+    window.setTimeout(hideAlert, 5000);
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"5Birt"}],"28JcJ":[function(require,module,exports) {
+/* eslint-disable */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "updateUserData", ()=>updateUserData);
+var _alert = require("./alert");
+const updateUserData = async (name, email)=>{
+    try {
+        const res = await axios({
+            method: "PATCH",
+            url: "http://127.0.0.1:3000/api/v1/users/update-me",
+            data: {
+                name,
+                email
+            }
+        });
+        if (res.data.status === "success") (0, _alert.showAlert)("success", "Data updated successfully!");
+    } catch (err) {
+        console.log(err.response);
+        (0, _alert.showAlert)("error", err.response.data.message);
+    }
+};
+
+},{"./alert":"bRZBd","@parcel/transformer-js/src/esmodule-helpers.js":"5Birt"}]},["1ZvHf","4uyBp"], "4uyBp", "parcelRequire11c7")
 
 //# sourceMappingURL=index.js.map

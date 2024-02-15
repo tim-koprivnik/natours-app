@@ -1,4 +1,5 @@
 const Tour = require('../models/tourModel');
+// const User = require('../models/userModel');
 const AppError = require('../utils/appError');
 
 exports.getOverview = async (req, res, next) => {
@@ -39,3 +40,32 @@ exports.getLoginForm = (req, res) => {
     title: 'Log into your account',
   });
 };
+
+exports.getMe = (req, res) => {
+  res.status(200).render('account', {
+    title: 'My account',
+  });
+};
+
+// exports.updateUserData = async (req, res, next) => {
+//   try {
+//     const updatedUser = await User.findByIdAndUpdate(
+//       req.user.id,
+//       {
+//         name: req.body.name,
+//         email: req.body.email,
+//       },
+//       {
+//         new: true,
+//         runValidators: true,
+//       },
+//     );
+
+//     res.status(200).render('account', {
+//       title: 'My account',
+//       user: updatedUser,
+//     });
+//   } catch (err) {
+//     next(err);
+//   }
+// };
