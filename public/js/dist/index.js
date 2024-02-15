@@ -585,6 +585,7 @@ const map = document.getElementById("map");
 const logoutBtn = document.querySelector(".nav__el--logout");
 const loginForm = document.querySelector(".form--login");
 const userDataForm = document.querySelector(".form-user-data");
+const userPasswordForm = document.querySelector(".form-user-password");
 if (loginForm) loginForm.addEventListener("submit", (e)=>{
     e.preventDefault();
     const email = document.getElementById("email").value;
@@ -600,7 +601,27 @@ if (userDataForm) userDataForm.addEventListener("submit", (e)=>{
     e.preventDefault();
     const name = document.getElementById("name").value;
     const email = document.getElementById("email").value;
-    (0, _updateSettings.updateUserData)(name, email);
+    (0, _updateSettings.updateSettings)({
+        name,
+        email
+    }, "data");
+});
+if (userPasswordForm) userPasswordForm.addEventListener("submit", async (e)=>{
+    e.preventDefault();
+    const btnSave = document.querySelector(".btn--save-password");
+    btnSave.textContent = "Updating...";
+    const passwordCurrent = document.getElementById("password-current").value;
+    const password = document.getElementById("password").value;
+    const passwordConfirm = document.getElementById("password-confirm").value;
+    await (0, _updateSettings.updateSettings)({
+        passwordCurrent,
+        password,
+        passwordConfirm
+    }, "password");
+    btnSave.textContent = "Save Password";
+    document.getElementById("password-current").value = "";
+    document.getElementById("password").value = "";
+    document.getElementById("password-confirm").value = "";
 });
 
 },{"./leaflet":"58ZVV","./login":"qZEOz","./updateSettings":"28JcJ"}],"58ZVV":[function(require,module,exports) {
@@ -759,19 +780,17 @@ const showAlert = (type, msg)=>{
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"5Birt"}],"28JcJ":[function(require,module,exports) {
 /* eslint-disable */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "updateUserData", ()=>updateUserData);
+parcelHelpers.export(exports, "updateSettings", ()=>updateSettings);
 var _alert = require("./alert");
-const updateUserData = async (name, email)=>{
+const updateSettings = async (data, type)=>{
     try {
+        const url = type === "password" ? "http://127.0.0.1:3000/api/v1/users/update-my-password/" : "http://127.0.0.1:3000/api/v1/users/update-me";
         const res = await axios({
             method: "PATCH",
-            url: "http://127.0.0.1:3000/api/v1/users/update-me",
-            data: {
-                name,
-                email
-            }
+            url,
+            data
         });
-        if (res.data.status === "success") (0, _alert.showAlert)("success", "Data updated successfully!");
+        if (res.data.status === "success") (0, _alert.showAlert)("success", `${type.charAt(0).toUpperCase() + type.slice(1)} updated successfully!`);
     } catch (err) {
         console.log(err.response);
         (0, _alert.showAlert)("error", err.response.data.message);
