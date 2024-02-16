@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "start:dev": "nodemon server.js",
-    "build:dev": "NODE_ENV=production nodemon server.js",
+    "start:prod-sim": "NODE_ENV=production nodemon server.js",
     "debug": "nodemon server.js --inspect",
     "delete-data": "node dev-data/data/import-dev-data.js --delete",
     "import-data": "node dev-data/data/import-dev-data.js --import",
