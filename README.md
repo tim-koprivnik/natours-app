@@ -45,10 +45,6 @@ These instructions will get you a copy of the project up and running on your loc
 6. Now, open your browser and navigate to http://127.0.0.1:3000. You should see the app running.
 7. To see the API, go to: https://documenter.getpostman.com/view/6094471/2s9YyweeTx#intro
 
-### Building the App
-
-To build the app for production, use the following command: `npm run start`
-
 ## Technologies Used
 
 - [Node.js](https://nodejs.org/en)
