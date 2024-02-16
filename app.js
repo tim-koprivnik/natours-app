@@ -8,6 +8,8 @@ const createDOMPurify = require('dompurify');
 const hpp = require('hpp');
 const mongoSanitize = require('express-mongo-sanitize');
 const cookieParser = require('cookie-parser');
+const compression = require('compression');
+
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
@@ -105,6 +107,8 @@ app.use(
     ], // Allow duplicate parameters for these fields
   }),
 );
+
+app.use(compression());
 
 // Test middleware
 app.use((req, res, next) => {

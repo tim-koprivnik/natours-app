@@ -20,14 +20,11 @@ export const login = async (email, password) => {
         location.assign('/');
       }, 1000);
     }
-
-    console.log(res);
   } catch (err) {
     const errorMessage =
       err.response && err.response.data && err.response.data.message
         ? err.response.data.message
         : 'An unknown error occurred';
-
     showAlert('error', errorMessage);
   }
 };
@@ -41,7 +38,6 @@ export const logout = async () => {
 
     if (res.data.status === 'success') location.reload(true);
   } catch (err) {
-    console.log(err.response);
     showAlert('error', 'Error logging out! Try again');
   }
 };

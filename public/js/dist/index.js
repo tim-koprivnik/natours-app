@@ -742,7 +742,6 @@ const login = async (email, password)=>{
                 location.assign("/");
             }, 1000);
         }
-        console.log(res);
     } catch (err) {
         const errorMessage = err.response && err.response.data && err.response.data.message ? err.response.data.message : "An unknown error occurred";
         (0, _alert.showAlert)("error", errorMessage);
@@ -756,7 +755,6 @@ const logout = async ()=>{
         });
         if (res.data.status === "success") location.reload(true);
     } catch (err) {
-        console.log(err.response);
         (0, _alert.showAlert)("error", "Error logging out! Try again");
     }
 };
@@ -792,7 +790,6 @@ const updateSettings = async (data, type)=>{
         });
         if (res.data.status === "success") (0, _alert.showAlert)("success", `${type.charAt(0).toUpperCase() + type.slice(1)} updated successfully!`);
     } catch (err) {
-        console.log(err.response);
         (0, _alert.showAlert)("error", err.response.data.message);
     }
 };
