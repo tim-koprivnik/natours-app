@@ -88,6 +88,6 @@ This project is open-source and available under the MIT License.
 
 Tim Koprivnik - t.koprivnik@gmail.com
 
-## NOTES
+## Notes
 
 Some features (payments with Stripe, file uploading, ...) are still in progress.
