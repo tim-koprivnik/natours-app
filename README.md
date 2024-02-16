@@ -13,7 +13,7 @@ Our Node.js and Express-powered application is designed to bring you closer to y
 - Payments with Stripe
 - Emailing with SendGrid
 - File uploading
-- Mapbox integration
+- Leaflet maps integration
 - Error handling
 - Security
 - Logging
@@ -33,23 +33,21 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/en/download/)
-- [Yarn](https://yarnpkg.com/getting-started/install) or [npm](https://www.npmjs.com/get-npm) (which comes with Node.js)
+- [npm](https://www.npmjs.com/get-npm) (comes with Node.js)
 
 ### Installation
 
 1. Clone the repository: `git clone https://github.com/tim-koprivnik/natours-app.git`
 2. Navigate into the cloned repository directory: `cd [name-of-the-repo]`
-3. Install the dependencies: `npm install` or `yarn`
+3. Install the dependencies: `npm install`
 4. Copy the .env.example file and rename it to .env. Then, fill in the environment variables.
-5. Start the local development server: `npm run dev` or `yarn dev`
+5. Start the local development server: `npm run dev`
 6. Now, open your browser and navigate to http://127.0.0.1:3000. You should see the app running.
 7. To see the API, go to: https://documenter.getpostman.com/view/6094471/2s9YyweeTx#intro
 
 ### Building the App
 
-To build the app for production, use the following command: `npm run build` or `yarn build`
-
-This command will create a dist directory with a production build of your app.
+To build the app for production, use the following command: `npm run start`
 
 ## Technologies Used
 
@@ -84,6 +82,7 @@ This command will create a dist directory with a production build of your app.
 - [VS Code](https://code.visualstudio.com/)
 - [Postman](https://www.postman.com/)
 - [Git](https://git-scm.com/)
+- [Heroku](https://www.heroku.com/platform)
 
 ## License
 
@@ -95,4 +94,4 @@ Tim Koprivnik - t.koprivnik@gmail.com
 
 ## NOTES
 
-Development is still in progress...
+Some features (payments with Stripe, file uploading, ...) are still in progress.
