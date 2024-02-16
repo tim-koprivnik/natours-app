@@ -4,7 +4,7 @@
   "description": "Learning node, express, mongoDB, mongoose, pug, and more!",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
     "dev": "nodemon server.js",
     "build": "NODE_ENV=production nodemon server.js",
     "debug": "nodemon server.js --inspect",
