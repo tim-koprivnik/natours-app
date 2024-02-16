@@ -41,7 +41,7 @@ These instructions will get you a copy of the project up and running on your loc
 2. Navigate into the cloned repository directory: `cd [name-of-the-repo]`
 3. Install the dependencies: `npm install`
 4. Copy the .env.example file and rename it to .env. Then, fill in the environment variables.
-5. Start the local development server: `npm run dev`
+5. Start the local development server: `npm run start:dev`
 6. Now, open your browser and navigate to http://127.0.0.1:3000. You should see the app running.
 7. To see the API, go to: https://documenter.getpostman.com/view/6094471/2s9YyweeTx#intro
 
